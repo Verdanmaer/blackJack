@@ -1,28 +1,42 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Board />
+    <CardDeck />
+    <Player />
+    <Dealer />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Board from "./components/Board";
+import CardDeck from "./components/CardDeck.vue";
+import Player from "./components/Player";
+import Dealer from "./components/Dealer";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    Board,
+    CardDeck,
+    Player,
+    Dealer,
+  },
+};
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Aldrich&family=Bungee&display=swap");
+
+body {
+  min-width: 1000px;
+  background-image: url("assets/background/bg.png");
+  background-color: rgb(22, 58, 13);
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  margin-left: 250px;
+  margin-right: 250px;
+  font-family: "Aldrich", sans-serif;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
