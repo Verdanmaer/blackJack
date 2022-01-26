@@ -28,9 +28,13 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Aldrich&family=Bungee&display=swap");
 
 body {
-  min-width: 1000px;
-  background-image: url("assets/background/bg.png");
-  background-color: rgb(22, 58, 13);
+  background: linear-gradient(
+    to right,
+    rgba(0, 41, 5, 0.788),
+    rgba(1, 110, 6, 0.5) 20% 80%,
+    rgba(0, 41, 5, 0.788)
+  ),
+  url("assets/background/bg.png");
 }
 
 #app {

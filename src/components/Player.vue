@@ -7,30 +7,32 @@
         </div>
       </transition-group>
     </div>
-
-    <div class="btn">
-      <!-- CHANGE CLASS NAME -->
-      <div class="buttons-play" v-if="isPlayingPhase">
-        <!-- -->
+    <div v-if="isPlayingPhase">
         <button @click="hit">Hit</button>
         <button @click="stand">Stand</button>
         <span class="hand-value">Hand value: {{ handValue }}</span>
-      </div>
-      <div class="deal">
-        <button v-if="isBettingPhase" @click="deal">Deal</button>
-      </div>
-      <div class="chip" v-if="isBettingPhase">
-        <button class="chip__5" @click="currentBet = 5">5</button>
-        <button class="chip__10" @click="currentBet = 10">10</button>
-        <button class="chip__25" @click="currentBet = 25">25</button>
-        <button class="chip__100" @click="currentBet = 100">100</button>
-      </div>
     </div>
 
-    <!--<div>{{ money }}</div>-->
-    <div class="info" v-if="isBettingPhase">
-      <div>Bet: {{ currentBet }}$</div>
-      <div>Money: {{ money }}$</div>
+    <div class="betting" v-if="isBettingPhase">
+      <div class="chip">
+        <div class="flex-inner">
+          <input type="radio" id="r1" name="rr"/>
+          <label for="r1" class="chip__5" @click="currentBet = 5"></label>
+          <input type="radio" id="r2" name="rr"/>
+          <label for="r2" class="chip__10" @click="currentBet = 10"></label>
+        </div>
+        <div class="flex-inner">
+          <input type="radio" id="r3" name="rr"/>
+          <label for="r3" class="chip__25" @click="currentBet = 25"></label>
+          <input type="radio" id="r4" name="rr"/>
+          <label for="r4" class="chip__100" @click="currentBet = 100"></label>
+        </div>
+        <input type="submit" value="Deal" class="deal" @click="deal">
+      </div>
+      <div class="info" >
+        <div>Bet: {{ currentBet }}$</div>
+        <div>Money: {{ money }}$</div>
+      </div>
     </div>
   </div>
 </template>
@@ -174,64 +176,81 @@ export default {
     transform: translateX(-250px);
   }
 }
-.btn {
-  button {
-    height: 150px;
-    width: 150px;
-    margin: 20px;
-    padding: 20px;
-    border-width: 6px;
-    border-color: black;
-    border-radius: 50%;
-    outline: none;
-    font-size: 36px;
-    cursor: pointer;
 
-    &:hover {
-      transform: scale(1.05);
-      opacity: 0.85;
-    }
+.betting {
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 
-    &:active {
-      transform: scale(0.95);
-    }
-  }
-  .deal {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
   .chip {
-    position: absolute;
-    top: 70%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    min-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    input[type="radio"] {
+      display: none;
+    }
+
+    input[type="radio"] + label {
+      min-width: 150px;
+      min-height: 150px;
+      margin: 30px;
+      background-color: white;
+      border: 3px solid black;
+      border-radius: 50%;
+      box-shadow: 8px 8px 2px black;
+      cursor: pointer;
+    }
+
+    input[type="radio"]:checked + label {
+      border: 3px solid black;
+      transform: scale(1.1);
+    }
+
     .chip__5 {
       background-image: url("../assets/chips/chip_5.png");
-      background-size: contain;
+      background-size: cover;
     }
     .chip__10 {
       background-image: url("../assets/chips/chip_10.png");
-      background-size: contain;
+      background-size: cover;
     }
     .chip__25 {
       background-image: url("../assets/chips/chip_25.png");
-      background-size: contain;
+      background-size: cover;
     }
     .chip__100 {
       background-image: url("../assets/chips/chip_100.png");
-      background-size: contain;
+      background-size: cover;
+    }
+
+    .deal{
+      position: absolute;
+      top: 70%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .flex-inner {
+      display: flex;
     }
   }
+  .info {
+    color: orange;
+    font-size: 64px;
+  }
 }
-.info {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: orange;
-  font-size: 64px;
+
+@media only screen and (max-width: 992px) {
+  .betting{
+    .chip{
+      input[type="radio"] + label {
+        min-width: 100px;
+        min-height: 100px;
+        margin: 20px;
+      }
+    }
+  }
 }
 </style>
