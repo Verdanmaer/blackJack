@@ -1,44 +1,32 @@
 <template>
   <div class="player">
-    <div class="container">
+    <div class="player__cards">
       <transition-group name="fade">
         <div v-for="card in hand" :key="card.texture" class="card">
           <img :src="require(`../assets/cards/${card.texture}.png`)" />
         </div>
       </transition-group>
     </div>
-    <div v-if="isPlayingPhase">
-        <button @click="hit">Hit</button>
-        <button @click="stand">Stand</button>
-        <span class="hand-value">Hand value: {{ handValue }}</span>
-    </div>
 
-    <div class="betting" v-if="isBettingPhase">
-      <div class="chip">
-        <div class="flex-inner">
-          <input type="radio" id="r1" name="rr"/>
-          <label for="r1" class="chip__5" @click="currentBet = 5"></label>
-          <input type="radio" id="r2" name="rr"/>
-          <label for="r2" class="chip__10" @click="currentBet = 10"></label>
+    <!-- <div class="player__hand-value">Hand value: {{ handValue }}</div> -->
+    <div class="player__controls">
+        <button class="player__controls--hit" @click="hit">HIT</button>
+        <div class="bank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
+            <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z"/>
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
+          </svg>
+          <small>x</small>
+          <span>21</span>
         </div>
-        <div class="flex-inner">
-          <input type="radio" id="r3" name="rr"/>
-          <label for="r3" class="chip__25" @click="currentBet = 25"></label>
-          <input type="radio" id="r4" name="rr"/>
-          <label for="r4" class="chip__100" @click="currentBet = 100"></label>
-        </div>
-        <input type="submit" value="Deal" class="deal" @click="deal">
-      </div>
-      <div class="info" >
-        <div>Bet: {{ currentBet }}$</div>
-        <div>Money: {{ money }}$</div>
-      </div>
+        <button class="player__controls--stand" @click="stand">STAND</button>
     </div>
   </div>
 </template>
 
 <script>
-import EventBus from "./event-bus";
+import EventBus from "../event-bus";
 
 let audio = new Audio(require("../assets/sound/deal.wav"));
 
@@ -60,11 +48,6 @@ export default {
     };
   },
   methods: {
-    deal() {
-      this.isBettingPhase = !this.isBettingPhase;
-      this.isPlayingPhase = !this.isPlayingPhase;
-      EventBus.$emit("newHand");
-    },
     hit() {
       audio.play();
 
@@ -146,34 +129,71 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.container {
-  display: flex;
-  .card {
-    display: inline-block;
-    margin: 10px;
-    padding: 10px;
-    background-color: #fff;
-    border: 3px solid black;
-    border-radius: 5%;
-    img {
-      height: 250px;
+
+.player {
+  &__cards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+
+    // TRANSITIONS
+    .fade-enter-active,
+    .fade-leave-active {
+      transition: all 0.8s ease-out;
+    }
+
+    .fade-enter {
+      opacity: 0;
+      transform: translateX(100px);
+    }
+
+    .fade-leave-to {
+      opacity: 0;
+      position: absolute;
+      transform: translateX(-250px);
     }
   }
-  // TRANSITIONS
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: all 0.8s ease-out;
+
+  &__controls {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    gap: 20px;
+    height: 8vh;
+    button {
+      width: 120px;
+      margin: 0 10px;
+      padding: 15px;
+      border: none;
+      border-radius: 20px;
+      font-size: 24px;
+      cursor: pointer;
+    }
   }
 
-  .fade-enter {
-    opacity: 0;
-    transform: translateX(100px);
+  .bank {
+    display: inline-flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 120px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    font-size: 24px;
   }
+}
 
-  .fade-leave-to {
-    opacity: 0;
-    position: absolute;
-    transform: translateX(-250px);
+.card {
+  display: inline-block;
+  height: 100px;
+  margin: 5px;
+  padding: 3px;
+  background-color: #fff;
+  // border: 2px solid black;
+  border-radius: 5%;
+  img {
+    max-width: 100%;
+    max-height: 100%;
   }
 }
 

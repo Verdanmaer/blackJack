@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import EventBus from "./event-bus";
+import EventBus from "../event-bus";
 
 export default {
   name: "CardDeck",
@@ -29,11 +29,11 @@ export default {
     },
   },
   created() {
-    let suits = ["spades", "diamonds", "clubs", "hearts"];
+    const suits = ["spades", "diamonds", "clubs", "hearts"];
     // prettier-ignore
-    let values = [/* ace - one or eleven */11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
+    const values = [/* ace - one or eleven */11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
     // prettier-ignore
-    let textures = [
+    const textures = [
       ["AS", "2S", "3S", "4S", "5S", "6S", "7S", "8S", "9S", "10S", "JS", "QS", "KS"],
       ["AoD", "2D", "3D", "4D", "5D", "6D", "7D", "8D", "9D", "10D", "JD", "QD", "KD"],
       ["AC", "2C", "3C", "4C", "5C", "6C", "7C", "8C", "9C", "10C", "JC", "QC", "KC"],

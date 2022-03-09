@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import EventBus from "./event-bus";
+import EventBus from "../event-bus";
 
 export default {
   name: "Board",
@@ -52,6 +52,7 @@ export default {
     resetData() {
       EventBus.$emit("resetData");
       this.isAlertHidden = !this.isAlertHidden;
+      EventBus.$emit("newHand");
     },
   },
   created() {

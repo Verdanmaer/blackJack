@@ -1,6 +1,6 @@
 <template>
   <div class="dealer">
-    <div class="container">
+    <div class="dealer__cards">
       <div class="card" v-for="card in firstCard" :key="card.texture">
         <img v-if="!firstCardVisible" src="../assets/cards/back.png" />
         <img v-if="firstCardVisible" :src="require(`../assets/cards/${card.texture}.png`)" />
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import EventBus from "./event-bus";
+import EventBus from "../event-bus";
 
 let audio = new Audio(require("../assets/sound/deal.wav"));
 
@@ -104,19 +104,27 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  .card {
-    display: inline-block;
-    margin: 10px;
-    padding: 10px;
-    background-color: #fff;
-    border: 3px solid black;
-    border-radius: 5%;
-    img {
-      height: 250px;
-    }
+.dealer {
+  margin-top: 1rem;
+  &__cards {
+    display: flex;
+    justify-content: center;
+    height: 15vh;
+    flex-wrap: wrap;
   }
 }
+
+.card {
+    display: inline-block;
+    height: 100px;
+    margin: 5px;
+    padding: 3px;
+    background-color: #fff;
+    border-radius: 5%;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
 </style>
