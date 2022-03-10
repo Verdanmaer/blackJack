@@ -1,5 +1,6 @@
 <template>
   <div class="app">
+    <AnimatedBackground />
     <Board />
     <CardDeck />
     <Dealer />
@@ -8,6 +9,7 @@
 </template>
 
 <script>
+import AnimatedBackground from './components/AnimatedBackground.vue';
 import Board from "./components/Board";
 import CardDeck from "./components/CardDeck.vue";
 import Player from "./components/Player";
@@ -17,6 +19,7 @@ import EventBus from './event-bus';
 export default {
   name: "App",
   components: {
+    AnimatedBackground,
     Board,
     CardDeck,
     Player,
@@ -36,13 +39,8 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background: linear-gradient(
-    to right,
-    rgba(0, 41, 5, 0.788),
-    rgba(1, 110, 6, 0.5) 20% 80%,
-    rgba(0, 41, 5, 0.788)
-  ),
-  url("assets/background/bg.png");
+  background: green;
+  z-index: -2;
 }
 
 .app {
