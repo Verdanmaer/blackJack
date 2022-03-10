@@ -167,8 +167,21 @@ export default {
       padding: 15px;
       border: none;
       border-radius: 20px;
-      font-size: 24px;
+      background: rgba(255, 255, 255, .6);
+      box-shadow: 0 0.25rem 0 0 rgba(0, 0, 0, .5);
+      font-size: 20px;
       cursor: pointer;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0.35rem 0 0 rgba(0, 0, 0, .5);
+        background: rgba(255, 255, 255, 1);
+      }
+
+      &:active {
+        transform: translateY(2px);
+        box-shadow: none;
+      }
     }
   }
 
