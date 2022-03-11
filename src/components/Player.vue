@@ -6,11 +6,13 @@
           <img :src="require(`../assets/cards/${card.texture}.png`)" />
         </div>
       </transition-group>
+      <div class="player__hand-value">
+        {{ handValue }}
+      </div>
     </div>
 
-    <!-- <div class="player__hand-value">Hand value: {{ handValue }}</div> -->
     <div class="player__controls">
-        <button class="player__controls--hit" @click="hit">HIT</button>
+        <button class="player__controls--stand" @click="stand">STAND</button>
         <div class="bank">
           <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
             <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z"/>
@@ -18,9 +20,9 @@
             <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
           </svg>
           <small>x</small>
-          <span>21</span>
+          <span>{{ money }}</span>
         </div>
-        <button class="player__controls--stand" @click="stand">STAND</button>
+        <button class="player__controls--hit" @click="hit">HIT</button>
     </div>
   </div>
 </template>
@@ -41,10 +43,7 @@ export default {
       blackjack: false,
       deck: [],
       cardsDealt: 4,
-      money: 2500,
-      currentBet: 5,
-      isPlayingPhase: false,
-      isBettingPhase: true,
+      money: 30
     };
   },
   methods: {
@@ -83,8 +82,6 @@ export default {
       this.blackjack = false;
       this.deck = [];
       this.cardsDealt = 4;
-      this.isPlayingPhase = false;
-      this.isBettingPhase = true;
     },
   },
   created() {
@@ -111,10 +108,10 @@ export default {
     });
 
     EventBus.$on("playerWins", () => {
-      this.money += this.currentBet;
+      this.money += 1;
     });
     EventBus.$on("dealerWins", () => {
-      this.money -= this.currentBet;
+      this.money -= 1;
     });
 
     EventBus.$on("resetData", () => {
@@ -133,6 +130,8 @@ export default {
 .player {
   &__cards {
     display: flex;
+    flex-direction: column;
+    gap: 2rem;
     justify-content: center;
     align-items: center;
     height: 70vh;
@@ -140,19 +139,23 @@ export default {
     // TRANSITIONS
     .fade-enter-active,
     .fade-leave-active {
-      transition: all 0.8s ease-out;
+      transition: all 0.3s ease-out;
     }
 
     .fade-enter {
       opacity: 0;
-      transform: translateX(100px);
+      transform: translateY(-50rem);
     }
 
     .fade-leave-to {
       opacity: 0;
       position: absolute;
-      transform: translateX(-250px);
     }
+  }
+
+  &__hand-value {
+    font-size: 3rem;
+    font-weight: 900;
   }
 
   &__controls {
@@ -197,7 +200,7 @@ export default {
 }
 
 .card {
-  display: inline-block;
+  display: inline-flex;
   height: 100px;
   margin: 5px;
   padding: 3px;
@@ -207,83 +210,6 @@ export default {
   img {
     max-width: 100%;
     max-height: 100%;
-  }
-}
-
-.betting {
-  height: 600px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-
-  .chip {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    input[type="radio"] {
-      display: none;
-    }
-
-    input[type="radio"] + label {
-      min-width: 150px;
-      min-height: 150px;
-      margin: 30px;
-      background-color: white;
-      border: 3px solid black;
-      border-radius: 50%;
-      box-shadow: 8px 8px 2px black;
-      cursor: pointer;
-    }
-
-    input[type="radio"]:checked + label {
-      border: 3px solid black;
-      transform: scale(1.1);
-    }
-
-    .chip__5 {
-      background-image: url("../assets/chips/chip_5.png");
-      background-size: cover;
-    }
-    .chip__10 {
-      background-image: url("../assets/chips/chip_10.png");
-      background-size: cover;
-    }
-    .chip__25 {
-      background-image: url("../assets/chips/chip_25.png");
-      background-size: cover;
-    }
-    .chip__100 {
-      background-image: url("../assets/chips/chip_100.png");
-      background-size: cover;
-    }
-
-    .deal{
-      position: absolute;
-      top: 70%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    .flex-inner {
-      display: flex;
-    }
-  }
-  .info {
-    color: orange;
-    font-size: 64px;
-  }
-}
-
-@media only screen and (max-width: 992px) {
-  .betting{
-    .chip{
-      input[type="radio"] + label {
-        min-width: 100px;
-        min-height: 100px;
-        margin: 20px;
-      }
-    }
   }
 }
 </style>

@@ -1,10 +1,8 @@
 <template>
   <div class="board">
     <transition name="fade">
-      <div class="alert" v-if="!isAlertHidden" @click="resetData()">
-        <div>Player score: {{ playerScore }}</div>
+      <div class="alert" v-if="!isAlertHidden">
         <div>{{ msg }}</div>
-        <div>Dealer score: {{ dealerScore }}</div>
       </div>
     </transition>
   </div>
@@ -33,21 +31,25 @@ export default {
           this.playerScore <= 21 &&
           this.playerBlackjack == this.dealerBlackjack)
       ) {
-        this.msg = "Push";
-        console.log("PUSH");
+        this.msg = "PUSH";
       } else if (
         this.playerScore > 21 ||
         (this.dealerScore <= 21 &&
           (this.dealerBlackjack || this.dealerScore > this.playerScore))
       ) {
-        this.msg = "Dealer wins";
+        this.msg = "LOSE";
         EventBus.$emit("dealerWins");
       } else {
-        this.msg = "Player wins";
+        this.msg = "WIN";
         EventBus.$emit("playerWins");
       }
 
       this.isAlertHidden = !this.isAlertHidden;
+      setTimeout(() => {
+        console.log("timeout");
+        this.resetData();
+      }, 1000);
+      
     },
     resetData() {
       EventBus.$emit("resetData");
@@ -75,29 +77,24 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .alert {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
   z-index: 1;
 
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  opacity: 0.85;
+  padding: 1rem;
+  opacity: 1;
 
-  width: 100%;
-  height: 100%;
+  background: black;
 
-  background-image: radial-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.85));
-
-  font-size: 48px;
-  color: gold;
+  font-size: 3rem;
+  color: white;
 }
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s ease-out;
+  transition: opacity 0.1s ease-out;
 }
 
 .fade-enter,
