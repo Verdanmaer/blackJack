@@ -45,15 +45,15 @@ export default {
       }
 
       this.isAlertHidden = !this.isAlertHidden;
-      setTimeout(() => {
-        console.log("timeout");
+      this.timeout = setTimeout(() => {
         this.resetData();
-      }, 1000);
+      }, 2500);
       
     },
     resetData() {
       EventBus.$emit("resetData");
       this.isAlertHidden = !this.isAlertHidden;
+      clearTimeout(this.timeout);
       EventBus.$emit("newHand");
     },
   },

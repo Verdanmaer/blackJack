@@ -2,7 +2,7 @@
   <div class="player">
     <div class="player__cards">
       <transition-group name="fade">
-        <div v-for="card in hand" :key="card.texture" class="card">
+        <div class="card" v-for="card in hand" :key="card.texture">
           <img :src="require(`../assets/cards/${card.texture}.png`)" />
         </div>
       </transition-group>
@@ -130,7 +130,7 @@ export default {
     gap: 2rem;
     justify-content: center;
     align-items: center;
-    height: 70vh;
+    height: 60vh;
 
     // TRANSITIONS
     .fade-enter-active,

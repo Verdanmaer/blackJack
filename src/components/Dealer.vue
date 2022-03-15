@@ -2,14 +2,14 @@
   <div class="dealer">
     <div class="dealer__cards">
       <div class="card" v-for="card in firstCard" :key="card.texture">
-        <img v-if="!firstCardVisible" src="../assets/cards/back.png" />
+        <img v-if="!firstCardVisible" :src="require('../assets/cards/back.png')" />
         <img v-if="firstCardVisible" :src="require(`../assets/cards/${card.texture}.png`)" />
       </div>
       <div class="card" v-for="card in hand" :key="card.texture">
-        <img :src="require(`../assets/cards/${card.texture}.png`)" />
+        <img v-if="!firstCardVisible" :src="require(`../assets/cards/${card.texture}.png`)" />
       </div>
     </div>
-    <div class="dealer__hand-value" v-if="isHandValueVisible">
+    <div class="dealer__hand-value" v-show="isHandValueVisible">
         {{ handValue }}
       </div>
   </div>
@@ -29,7 +29,7 @@ const getInitialData = () => {
     deck: [],
     cardsDealt: 0,
     firstCardVisible: false,
-    isHandValueVisible: false
+    isHandValueVisible: false,
   };
 };
 
@@ -104,10 +104,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .dealer {
-  margin-top: 1rem;
   height: 15vh;
+  margin-top: 3rem;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
   align-items: center;
 
