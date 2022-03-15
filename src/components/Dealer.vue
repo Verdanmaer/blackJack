@@ -9,13 +9,14 @@
         <img :src="require(`../assets/cards/${card.texture}.png`)" />
       </div>
     </div>
+    <div class="dealer__hand-value" v-if="isHandValueVisible">
+        {{ handValue }}
+      </div>
   </div>
 </template>
 
 <script>
 import EventBus from "../event-bus";
-
-let audio = new Audio(require("../assets/sound/deal.wav"));
 
 const getInitialData = () => {
   return {
@@ -28,6 +29,7 @@ const getInitialData = () => {
     deck: [],
     cardsDealt: 0,
     firstCardVisible: false,
+    isHandValueVisible: false
   };
 };
 
@@ -38,8 +40,6 @@ export default {
   },
   methods: {
     stand() {
-      audio.play();
-
       this.hand.unshift(this.firstCard[0]);
       this.firstCard.shift();
 
@@ -67,11 +67,9 @@ export default {
       Object.assign(this.$data, getInitialData());
     },
   },
-  created() {
+  created() { 
     // Get card deck from CardDeck.vue
     EventBus.$on("dealCards", (payload) => {
-      audio.play();
-
       this.deck.push(payload);
 
       // Deal first card separately, because first dealer card is hidden
@@ -92,6 +90,7 @@ export default {
     });
     EventBus.$on("stand", (payload) => {
       this.cardsDealt = payload;
+      this.isHandValueVisible = true;
       this.stand();
     });
 
@@ -106,11 +105,15 @@ export default {
 <style scoped lang="scss">
 .dealer {
   margin-top: 1rem;
-  &__cards {
-    display: flex;
-    justify-content: center;
-    height: 15vh;
-    flex-wrap: wrap;
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  &__hand-value {
+    font-size: 3rem;
+    font-weight: 900;
   }
 }
 

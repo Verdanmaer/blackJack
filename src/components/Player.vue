@@ -10,9 +10,8 @@
         {{ handValue }}
       </div>
     </div>
-
     <div class="player__controls">
-        <button class="player__controls--stand" @click="stand">STAND</button>
+        <button class="player__controls--stand" @click="stand" :disabled="isButtonDisabled">STAND</button>
         <div class="bank">
           <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
             <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z"/>
@@ -22,15 +21,13 @@
           <small>x</small>
           <span>{{ money }}</span>
         </div>
-        <button class="player__controls--hit" @click="hit">HIT</button>
+        <button class="player__controls--hit" @click="hit" :disabled="isButtonDisabled">HIT</button>
     </div>
   </div>
 </template>
 
 <script>
 import EventBus from "../event-bus";
-
-let audio = new Audio(require("../assets/sound/deal.wav"));
 
 export default {
   name: "Player",
@@ -43,13 +40,12 @@ export default {
       blackjack: false,
       deck: [],
       cardsDealt: 4,
-      money: 30
+      money: 30,
+      isButtonDisabled: false
     };
   },
   methods: {
     hit() {
-      audio.play();
-
       this.hand.push(this.deck[0][this.cardsDealt]);
       this.handValue += this.hand[this.cardsInHand].value;
 
@@ -68,6 +64,7 @@ export default {
       }
     },
     stand() {
+      this.isButtonDisabled = true;
       EventBus.$emit("stand", this.cardsDealt);
       EventBus.$emit("playerScore", {
         playerScore: this.handValue,
@@ -82,13 +79,12 @@ export default {
       this.blackjack = false;
       this.deck = [];
       this.cardsDealt = 4;
+      this.isButtonDisabled = false;
     },
   },
   created() {
     // Get card deck from CardDeck.vue
     EventBus.$on("dealCards", (payload) => {
-      audio.play();
-
       this.deck.push(payload);
 
       // Deal first 2 cards and count hand value
