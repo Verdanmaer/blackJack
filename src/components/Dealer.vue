@@ -116,4 +116,11 @@ export default {
     font-weight: 900;
   }
 }
+
+@media (max-width: 575.90px) {
+  .dealer {
+    height: 30vh;
+    margin-top: 1rem;
+  }
+}
 </style>

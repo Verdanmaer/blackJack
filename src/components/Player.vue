@@ -130,7 +130,7 @@ export default {
     gap: 2rem;
     justify-content: center;
     align-items: center;
-    height: 60vh;
+    height: 70vh;
 
     // TRANSITIONS
     .fade-enter-active,
@@ -192,6 +192,22 @@ export default {
     background: rgba(0, 0, 0, 0.1);
     border-radius: 2rem;
     font-size: 2.4rem;
+  }
+}
+
+@media (max-width: 676.98px) {
+  .player {
+    &__cards {
+      height: 60vh;
+    }
+    
+    &__controls {
+      gap: .5rem;
+      button {
+        margin: 0 .5rem;
+        padding: 1rem;
+      }
+    }
   }
 }
 </style>

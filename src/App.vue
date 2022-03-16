@@ -34,9 +34,14 @@ export default {
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Aldrich&family=Bungee&display=swap");
 
+html {
+  font-size: 100%;
+}
+
 body {
-  font-size: 62.5%;
   box-sizing: border-box;
+  min-width: 200px;
+  
   margin: 0;
   padding: 0;
   background: green;
@@ -59,6 +64,16 @@ body {
   img {
     max-width: 100%;
     max-height: 100%;
+  }
+}
+
+@media (max-width: 575.98px) {
+  html {
+    font-size: 75%;
+  }
+
+  .app {
+    width: 100%;
   }
 }
 </style>
