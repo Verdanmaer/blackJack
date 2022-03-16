@@ -116,18 +116,4 @@ export default {
     font-weight: 900;
   }
 }
-
-.card {
-    display: inline-block;
-    height: 100px;
-    margin: 5px;
-    padding: 3px;
-    background-color: #fff;
-    border-radius: 5%;
-    img {
-      max-width: 100%;
-      max-height: 100%;
-    }
-  }
-
 </style>

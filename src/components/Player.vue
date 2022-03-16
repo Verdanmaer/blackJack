@@ -194,18 +194,4 @@ export default {
     font-size: 24px;
   }
 }
-
-.card {
-  display: inline-flex;
-  height: 100px;
-  margin: 5px;
-  padding: 3px;
-  background-color: #fff;
-  // border: 2px solid black;
-  border-radius: 5%;
-  img {
-    max-width: 100%;
-    max-height: 100%;
-  }
-}
 </style>

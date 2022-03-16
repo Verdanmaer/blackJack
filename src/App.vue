@@ -31,7 +31,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Aldrich&family=Bungee&display=swap");
 
 body {
@@ -47,5 +47,18 @@ body {
   width: 70%;
   margin: 0 auto;
   font-family: "Aldrich", sans-serif;
+}
+
+.card {
+  display: inline-flex;
+  height: 100px;
+  margin: 5px;
+  padding: 3px;
+  background-color: #fff;
+  border-radius: 5%;
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
 }
 </style>
