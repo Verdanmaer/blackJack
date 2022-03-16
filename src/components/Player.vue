@@ -158,17 +158,17 @@ export default {
     display: flex;
     justify-content: center;
     align-content: center;
-    gap: 20px;
+    gap: 2rem;
     height: 8vh;
     button {
-      width: 120px;
-      margin: 0 10px;
-      padding: 15px;
+      width: 12rem;
+      margin: 0 1rem;
+      padding: 1.5rem;
       border: none;
-      border-radius: 20px;
+      border-radius: 2rem;
       background: rgba(255, 255, 255, .6);
       box-shadow: 0 0.25rem 0 0 rgba(0, 0, 0, .5);
-      font-size: 20px;
+      font-size: 2rem;
       cursor: pointer;
 
       &:hover {
@@ -188,10 +188,10 @@ export default {
     display: inline-flex;
     justify-content: space-evenly;
     align-items: center;
-    width: 120px;
+    width: 12rem;
     background: rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
-    font-size: 24px;
+    border-radius: 2rem;
+    font-size: 2.4rem;
   }
 }
 </style>

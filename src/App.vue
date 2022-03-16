@@ -51,9 +51,9 @@ body {
 
 .card {
   display: inline-flex;
-  height: 100px;
-  margin: 5px;
-  padding: 3px;
+  height: 10rem;
+  margin: .5rem;
+  padding: .3rem;
   background-color: #fff;
   border-radius: 5%;
   img {
